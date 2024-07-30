@@ -1,11 +1,12 @@
 package ods
 
-import "awesomeProject/pkg/offersearch/domain/entity/full"
+import "ddd-implementation/pkg/offersearch/domain/entity/full"
 
 type OfferRow struct {
-	Id         uint `db:"id"`
-	SupplierId uint `db:"supplier_id"`
-	Price      uint `db:"price"`
+	Id         uint   `db:"id"`
+	SupplierId uint   `db:"supplier_id"`
+	Price      uint   `db:"price"`
+	CityName   string `db:"city_name"`
 }
 
 type OfferRepository struct{}
@@ -31,6 +32,7 @@ func (r OfferRepository) fullOfferToRow(offers []full.Offer) (offerRows []OfferR
 		newOfferRow.Id = offer.Id
 		newOfferRow.SupplierId = offer.SupplierId
 		newOfferRow.Price = offer.Price
+		newOfferRow.CityName = offer.City.Name()
 
 		offerRows = append(offerRows, newOfferRow)
 	}

@@ -1,6 +1,6 @@
 package full
 
-import "awesomeProject/pkg/offersearch/domain/value"
+import "ddd-implementation/pkg/offersearch/domain/value"
 
 type Offer struct {
 	Id         uint

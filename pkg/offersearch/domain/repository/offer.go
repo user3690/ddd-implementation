@@ -1,8 +1,6 @@
 package repository
 
-import (
-	"awesomeProject/pkg/offersearch/domain/entity/full"
-)
+import "ddd-implementation/pkg/offersearch/domain/entity/full"
 
 type Offer interface {
 	GetAllOffers() ([]full.Offer, error)

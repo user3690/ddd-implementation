@@ -1,9 +1,10 @@
 package manipulateOffer
 
 import (
-	"awesomeProject/pkg/offersearch/domain/entity/full"
-	"awesomeProject/pkg/offersearch/domain/entity/partial"
-	"awesomeProject/pkg/offersearch/domain/repository"
+	"ddd-implementation/pkg/offersearch/domain/entity/full"
+	"ddd-implementation/pkg/offersearch/domain/entity/partial"
+	"ddd-implementation/pkg/offersearch/domain/repository"
+	"ddd-implementation/pkg/offersearch/domain/value"
 	"fmt"
 	"time"
 )
@@ -84,7 +85,7 @@ func (i Impl) partialToFullOffer(partialOffers []partial.Offer, supplierId uint)
 		newFullOffer.HotelId = partialOffer.HotelId
 		newFullOffer.HotelName = partialOffer.HotelName
 		newFullOffer.Price = partialOffer.Price
-		newFullOffer.City = partialOffer.City
+		newFullOffer.City = value.NewCity(partialOffer.City, partialOffer.CountryCode)
 
 		newFullOffer.SupplierId = supplierId
 

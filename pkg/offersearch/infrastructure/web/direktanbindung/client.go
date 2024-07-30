@@ -1,7 +1,7 @@
 package direktanbindung
 
 import (
-	"awesomeProject/pkg/offersearch/domain/entity/partial"
+	"ddd-implementation/pkg/offersearch/domain/entity/partial"
 	"net/http"
 	"net/url"
 	"strconv"

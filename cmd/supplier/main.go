@@ -1,11 +1,11 @@
 package main
 
 import (
-	"awesomeProject/pkg/offersearch/application/handler"
-	"awesomeProject/pkg/offersearch/domain/service/manipulateOffer"
-	"awesomeProject/pkg/offersearch/infrastructure/config"
-	"awesomeProject/pkg/offersearch/infrastructure/mysql/ods"
-	"awesomeProject/pkg/offersearch/infrastructure/web/direktanbindung"
+	"ddd-implementation/pkg/offersearch/application/handler"
+	"ddd-implementation/pkg/offersearch/domain/service/manipulateOffer"
+	"ddd-implementation/pkg/offersearch/infrastructure/config"
+	"ddd-implementation/pkg/offersearch/infrastructure/mysql/ods"
+	"ddd-implementation/pkg/offersearch/infrastructure/web/direktanbindung"
 	"fmt"
 	"net/http"
 	"os"

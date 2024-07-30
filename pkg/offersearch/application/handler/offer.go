@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"awesomeProject/pkg/offersearch/domain/service/manipulateOffer"
+	"ddd-implementation/pkg/offersearch/domain/service/manipulateOffer"
 	"net/http"
 	"strconv"
 	"time"
@@ -74,5 +74,15 @@ func (h Offer) Handle(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	h.manipulateOfferService.SaveOffers(fullOffers)
+	_, err = h.manipulateOfferService.SaveOffers(fullOffers)
+	if err != nil {
+		writeError(
+			response,
+			http.StatusInternalServerError,
+			"error getting offers",
+			err,
+		)
+
+		return
+	}
 }

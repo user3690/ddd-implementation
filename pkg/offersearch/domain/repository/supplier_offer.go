@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"awesomeProject/pkg/offersearch/domain/entity/partial"
+	"ddd-implementation/pkg/offersearch/domain/entity/partial"
 	"time"
 )
 
