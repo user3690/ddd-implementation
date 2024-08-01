@@ -19,10 +19,15 @@ func (r OfferRepository) GetAllOffers() ([]full.Offer, error) {
 	return nil, nil
 }
 
-func (r OfferRepository) SaveOffers(offers []full.Offer) (int, error) {
+func (r OfferRepository) SaveOffers(offers []full.Offer) ([]full.Offer, error) {
 	offerRows := r.fullOfferToRow(offers)
 
-	return r.saveOffers(offerRows)
+	err := r.saveOffers(offerRows)
+	if err != nil {
+		return nil, err
+	}
+
+	return offers, err
 }
 
 func (r OfferRepository) fullOfferToRow(offers []full.Offer) (offerRows []OfferRow) {
@@ -40,6 +45,6 @@ func (r OfferRepository) fullOfferToRow(offers []full.Offer) (offerRows []OfferR
 	return offerRows
 }
 
-func (r OfferRepository) saveOffers(offers []OfferRow) (int, error) {
-	return len(offers), nil
+func (r OfferRepository) saveOffers(offers []OfferRow) error {
+	return nil
 }

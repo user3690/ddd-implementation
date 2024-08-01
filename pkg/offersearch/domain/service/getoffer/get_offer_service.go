@@ -1,4 +1,4 @@
-package manipulateOffer
+package getoffer
 
 import (
 	"ddd-implementation/pkg/offersearch/domain/entity/full"
@@ -24,26 +24,18 @@ type Service interface {
 		from time.Time,
 		to time.Time,
 	) ([]full.Offer, error)
-	SaveOffers(offers []full.Offer) (int, error)
 }
 
 type Impl struct {
-	odsOfferRepo repository.Offer
-	daClient     repository.SupplierOffer
+	daClient repository.SupplierOffer
 }
 
 func NewService(
-	odsOfferRepo repository.Offer,
 	daClient repository.SupplierOffer,
 ) Impl {
 	return Impl{
-		odsOfferRepo: odsOfferRepo,
-		daClient:     daClient,
+		daClient: daClient,
 	}
-}
-
-func (i Impl) SaveOffers(offers []full.Offer) (int, error) {
-	return 0, nil
 }
 
 func (i Impl) GetOffersFromSupplier(

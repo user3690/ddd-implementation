@@ -2,7 +2,8 @@ package main
 
 import (
 	"ddd-implementation/pkg/offersearch/application/handler"
-	"ddd-implementation/pkg/offersearch/domain/service/manipulateOffer"
+	"ddd-implementation/pkg/offersearch/domain/service/getoffer"
+	"ddd-implementation/pkg/offersearch/domain/service/saveoffer"
 	"ddd-implementation/pkg/offersearch/infrastructure/config"
 	"ddd-implementation/pkg/offersearch/infrastructure/mysql/ods"
 	"ddd-implementation/pkg/offersearch/infrastructure/web/direktanbindung"
@@ -48,10 +49,11 @@ func bootstrap() *http.ServeMux {
 	odsOfferRepo := ods.NewOfferRepository()
 
 	// create services
-	manipulateOfferService := manipulateOffer.NewService(odsOfferRepo, daClient)
+	getOfferService := getoffer.NewService(daClient)
+	saveOfferService := saveoffer.NewService(odsOfferRepo)
 
 	// create handlers
-	offerHandler := handler.NewOfferHandler(manipulateOfferService)
+	offerHandler := handler.NewOfferHandler(getOfferService, saveOfferService)
 
 	mux := http.NewServeMux()
 

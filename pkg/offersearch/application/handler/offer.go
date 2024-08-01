@@ -1,21 +1,25 @@
 package handler
 
 import (
-	"ddd-implementation/pkg/offersearch/domain/service/manipulateOffer"
+	"ddd-implementation/pkg/offersearch/domain/service/getoffer"
+	"ddd-implementation/pkg/offersearch/domain/service/saveoffer"
 	"net/http"
 	"strconv"
 	"time"
 )
 
 type Offer struct {
-	manipulateOfferService manipulateOffer.Service
+	getOfferService  getoffer.Service
+	saveOfferService saveoffer.Service
 }
 
 func NewOfferHandler(
-	manipulateOfferService manipulateOffer.Service,
+	getOfferService getoffer.Service,
+	saveOfferService saveoffer.Service,
 ) Offer {
 	return Offer{
-		manipulateOfferService: manipulateOfferService,
+		getOfferService:  getOfferService,
+		saveOfferService: saveOfferService,
 	}
 }
 
@@ -62,7 +66,7 @@ func (h Offer) Handle(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	fullOffers, err := h.manipulateOfferService.GetOffersFromSupplier(supplierParam, uint(hotelId), from, to)
+	fullOffers, err := h.getOfferService.GetOffersFromSupplier(supplierParam, uint(hotelId), from, to)
 	if err != nil {
 		writeError(
 			response,
@@ -74,15 +78,17 @@ func (h Offer) Handle(response http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	_, err = h.manipulateOfferService.SaveOffers(fullOffers)
+	offers, err := h.saveOfferService.SaveOffers(fullOffers)
 	if err != nil {
 		writeError(
 			response,
 			http.StatusInternalServerError,
-			"error getting offers",
+			"error saving offers",
 			err,
 		)
 
 		return
 	}
+
+	writeJsonOfferResponse(response, http.StatusOK, offers, supplierParam)
 }
