@@ -5,6 +5,8 @@ type City struct {
 	countryCode string
 }
 
+// NewCity is intentionally the only way to create a city.
+// Value objects are immutable so the struct fields are all unexported.
 func NewCity(name string, countryCode string) City {
 	return City{
 		name:        name,
