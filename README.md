@@ -7,3 +7,8 @@
 - [Value Object](pkg/offersearch/domain/value/valueobject.md)
 - [Repository](pkg/offersearch/domain/repository/repository.md)
 - [Service](pkg/offersearch/domain/service/service.md)
+
+## More Information On Coding Styles
+- [Tiger Style Programming](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md)
+- [Radical Simplicity](https://www.radicalsimpli.city/)
+- [The Grug Brained Developer](https://grugbrain.dev/)
