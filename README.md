@@ -1,4 +1,4 @@
-# Domain Driven Design Konzept
+# Domain Driven Design Concept
 - [Hexagonal Architecture](pkg/offersearch/hexagonal_arch.md)
 - [Domain](pkg/offersearch/domain/domain.md)
 - [Application](pkg/offersearch/application/application.md)
