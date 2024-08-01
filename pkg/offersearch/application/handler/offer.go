@@ -23,7 +23,7 @@ func NewOfferHandler(
 	}
 }
 
-// Handle validates und coordinates requests and responds accordingly
+// Handle validates und coordinates requests, program flow and responds accordingly
 func (h Offer) Handle(response http.ResponseWriter, request *http.Request) {
 	supplierParam := request.URL.Query().Get("supplier")
 	hotelIdParam := request.URL.Query().Get("hotelid")
