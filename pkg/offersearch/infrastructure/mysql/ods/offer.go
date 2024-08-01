@@ -9,6 +9,7 @@ type OfferRow struct {
 	CityName   string `db:"city_name"`
 }
 
+// OfferRepository named after the table, package named after database
 type OfferRepository struct{}
 
 func NewOfferRepository() OfferRepository {
@@ -30,6 +31,7 @@ func (r OfferRepository) SaveOffers(offers []full.Offer) ([]full.Offer, error) {
 	return offers, err
 }
 
+// fullOfferToRow maps the domain entity data to the mysql compatible data
 func (r OfferRepository) fullOfferToRow(offers []full.Offer) (offerRows []OfferRow) {
 	for _, offer := range offers {
 		newOfferRow := OfferRow{}

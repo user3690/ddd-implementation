@@ -2,8 +2,11 @@ package direktanbindung
 
 import (
 	"ddd-implementation/pkg/offersearch/domain/entity/partial"
+	"encoding/json"
 	"net/http"
 	"net/url"
+	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 )
@@ -27,32 +30,53 @@ func (c Client) GetOffers(hotelId uint, from time.Time, to time.Time) ([]partial
 		return nil, err
 	}
 
-	offers := c.parseResponse(response)
-
-	return offers, nil
-}
-
-func (c Client) send(request *http.Request) (http.Response, error) {
-	return http.Response{}, nil
-}
-
-func (c Client) parseResponse(response http.Response) []partial.Offer {
-	return []partial.Offer{
-		{
-			Id:        1,
-			HotelId:   42,
-			HotelName: "Hotel 42",
-			Price:     1234,
-			City:      "Amsterdam",
-		},
-		{
-			Id:        2,
-			HotelId:   42,
-			HotelName: "Hotel 42",
-			Price:     2345,
-			City:      "Amsterdam",
-		},
+	parsedResponse, err := c.parseResponse(response)
+	if err != nil {
+		return nil, err
 	}
+
+	return c.mapResponse(parsedResponse), nil
+}
+
+func (c Client) send(request *http.Request) ([]byte, error) {
+	path := filepath.Join("pkg", "offersearch", "infrastructure", "web", "direktanbindung")
+	path = path + string(os.PathSeparator) + "response.json"
+	fileContent, err := os.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	return fileContent, nil
+}
+
+func (c Client) parseResponse(responseContent []byte) (DaOfferResponse, error) {
+	var response DaOfferResponse
+
+	err := json.Unmarshal(responseContent, &response)
+	if err != nil {
+		return response, err
+	}
+
+	return response, nil
+}
+
+func (c Client) mapResponse(daResponse DaOfferResponse) []partial.Offer {
+	var partialOffers []partial.Offer
+
+	for _, daOffer := range daResponse.Data {
+		partialOffer := partial.Offer{
+			Id:          daOffer.Id,
+			HotelId:     daOffer.HotelId,
+			HotelName:   daOffer.HotelName,
+			City:        daOffer.City,
+			CountryCode: daOffer.Country,
+			Price:       daOffer.Price,
+		}
+
+		partialOffers = append(partialOffers, partialOffer)
+	}
+
+	return partialOffers
 }
 
 func (c Client) createOfferRequest(hotelId uint, from time.Time, to time.Time) (*http.Request, error) {
