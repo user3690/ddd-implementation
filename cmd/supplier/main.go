@@ -45,6 +45,11 @@ func bootstrap() *http.ServeMux {
 	// create http clients
 	daClient := direktanbindung.NewClient(conf.DaBaseUrl)
 
+	// daClient is easily interchangeable with a cache
+	// no need to change business logic cause of abstraction through repository interfaces
+	// simply put it in the getOfferService
+	// daClientCache := direktanbindung.NewClientCache(daClient)
+
 	// create repositories
 	odsOfferRepo := ods.NewOfferRepository()
 
