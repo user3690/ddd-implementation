@@ -19,6 +19,7 @@ func NewClient(baseUrl string) *Client {
 	return &Client{baseUrl: baseUrl}
 }
 
+// GetOffers send request to api, parse response, map to domain entity
 func (c Client) GetOffers(hotelId uint, from time.Time, to time.Time) ([]partial.Offer, error) {
 	request, err := c.createOfferRequest(hotelId, from, to)
 	if err != nil {
